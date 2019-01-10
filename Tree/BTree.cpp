@@ -1,19 +1,20 @@
-#include<malloc.h>
-#include<vector>
-#include<iostream>
-#include<string>
+#include <malloc.h>
+#include <vector>
+#include <iostream>
+#include <string>
 #include <stdexcept>
-#include<map>
-#include<set>
+#include <map>
+#include <set>
 #include <algorithm>
-#include<cctype>
-#include<list>
-#include<queue>
+#include <cctype>
+#include <list>
+#include <queue>
 
 using namespace std;
 
 //二叉树结构定义
-struct TreeNode {
+struct TreeNode
+{
 	int val;
 	TreeNode *left;
 	TreeNode *right;
@@ -21,11 +22,14 @@ struct TreeNode {
 };
 
 //根据数组初始化二叉树
-TreeNode *initBTree(int data[],int index,int n) {
+TreeNode *initBTree(int data[], int index, int n)
+{
 	TreeNode *pNode = NULL;
-	if (index < n&&data[index] != -1) {
-		pNode = (TreeNode*)malloc(sizeof(TreeNode));
-		if (pNode == NULL) {
+	if (index < n && data[index] != -1)
+	{
+		pNode = (TreeNode *)malloc(sizeof(TreeNode));
+		if (pNode == NULL)
+		{
 			return NULL;
 		}
 		pNode->val = data[index];
@@ -69,46 +73,57 @@ void postOrder(TreeNode *root, vector<int> &result)
 }
 
 //层次遍历一 输出一维数组
-void levelOrder(TreeNode *root, vector<int> &result) {
-	if (root == NULL) {
+void levelOrder(TreeNode *root, vector<int> &result)
+{
+	if (root == NULL)
+	{
 		return;
 	}
-	queue<TreeNode*> queue;
+	queue<TreeNode *> queue;
 	queue.push(root);
-	while (!queue.empty()) {
-		TreeNode* front = queue.front();
+	while (!queue.empty())
+	{
+		TreeNode *front = queue.front();
 		queue.pop();
 		result.push_back(front->val);
-		if (front->left) {
+		if (front->left)
+		{
 			queue.push(front->left);
 		}
-		
-		if (front->right) {
+
+		if (front->right)
+		{
 			queue.push(front->right);
 		}
 	}
 }
 
 //层次遍历二 输出二维数组
-void levelOrder2(TreeNode *root,vector<vector<int>> &result) {
-	if (root == NULL) {
+void levelOrder2(TreeNode *root, vector<vector<int>> &result)
+{
+	if (root == NULL)
+	{
 		return;
 	}
-	queue<TreeNode*> queue;
+	queue<TreeNode *> queue;
 	queue.push(root);
-	while (!queue.empty()) {
+	while (!queue.empty())
+	{
 		int count = queue.size();
 		vector<int> vec_temp;
 
-		while (count--) {
-			TreeNode* front = queue.front();
+		while (count--)
+		{
+			TreeNode *front = queue.front();
 			queue.pop();
 			vec_temp.push_back(front->val);
-			if (front->left) {
+			if (front->left)
+			{
 				queue.push(front->left);
 			}
 
-			if (front->right) {
+			if (front->right)
+			{
 				queue.push(front->right);
 			}
 		}
@@ -116,10 +131,11 @@ void levelOrder2(TreeNode *root,vector<vector<int>> &result) {
 	}
 }
 
-
 //二叉树的最大深度
-int maxDepth(TreeNode* root) {
-	if (root == NULL)return 0;
+int maxDepth(TreeNode *root)
+{
+	if (root == NULL)
+		return 0;
 	int l1 = maxDepth(root->left);
 	int l2 = maxDepth(root->right);
 	return max(l1, l2) + 1;
@@ -136,13 +152,12 @@ void traverse(vector<int> nums)
 	cout << endl;
 }
 
-
-int main() {
-	int nums[] = { 1, 2, 3, 3, -1, 2, -1};
-	TreeNode *root = initBTree(nums, 0, sizeof(nums)/sizeof(nums[0]));
+int main()
+{
+	int nums[] = {1, 2, 3, 3, -1, 2, -1};
+	TreeNode *root = initBTree(nums, 0, sizeof(nums) / sizeof(nums[0]));
 	vector<int> preResult;
-	levelOrder(root,preResult);
+	levelOrder(root, preResult);
 	cout << "前序遍历的结果：" << '\n';
 	traverse(preResult);
 }
-
