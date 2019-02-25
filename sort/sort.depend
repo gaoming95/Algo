@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1547897240 source:d:\code_c\sort\main.cpp
+	<iostream>
+	<vector>
+	<math.h>
+	<random>
+	<algorithm>
+
