@@ -9,6 +9,7 @@
 #include <cctype>
 #include <list>
 #include <queue>
+#include<stack>
 
 using namespace std;
 
@@ -39,7 +40,7 @@ TreeNode *initBTree(int data[], int index, int n)
 	return pNode;
 }
 
-//前序遍历
+//前序遍历 递归方式
 void preOrder(TreeNode *root, vector<int> &result)
 {
 	if (root)
@@ -49,8 +50,32 @@ void preOrder(TreeNode *root, vector<int> &result)
 		preOrder(root->right, result);
 	}
 }
+// 前序遍历 非递归方式
+void preorderTraversal(TreeNode *root,vector<int> &result){
+	stack< pair<TreeNode *, bool> > s;
+    s.push(make_pair(root, false));
+    bool visited;
+    while(!s.empty())
+    {
+        root = s.top().first;
+        visited = s.top().second;
+        s.pop();
+        if(root == NULL)
+            continue;
+        if(visited)
+        {
+            result.push_back(root->val);
+        }
+        else
+        {
+            s.push(make_pair(root->right, false));
+            s.push(make_pair(root->left, false));
+            s.push(make_pair(root, true));
+        }
+    }
+}
 
-//中序遍历
+//中序遍历 递归方式
 void inOrder(TreeNode *root, vector<int> &result)
 {
 	if (root)
@@ -61,7 +86,32 @@ void inOrder(TreeNode *root, vector<int> &result)
 	}
 }
 
-//后序遍历
+//中序遍历 非递归方式
+void inOrderTraversal(TreeNode *root,vector<int> &result){
+	stack< pair<TreeNode *, bool> > s;
+    s.push(make_pair(root, false));
+    bool visited;
+    while(!s.empty())
+    {
+        root = s.top().first;
+        visited = s.top().second;
+        s.pop();
+        if(root == NULL)
+            continue;
+        if(visited)
+        {
+            result.push_back(root->val);
+        }
+        else
+        {
+            s.push(make_pair(root->right, false));
+            s.push(make_pair(root, true));
+            s.push(make_pair(root->left, false));
+        }
+    }
+}
+
+//后序遍历 递归方式
 void postOrder(TreeNode *root, vector<int> &result)
 {
 	if (root)
@@ -70,6 +120,31 @@ void postOrder(TreeNode *root, vector<int> &result)
 		postOrder(root->right, result);
 		result.push_back(root->val);
 	}
+}
+
+//后续遍历 非递归方式
+void postOrderTraversal(TreeNode *root,vector<int> &result){
+	stack< pair<TreeNode *, bool> > s;
+    s.push(make_pair(root, false));
+    bool visited;
+    while(!s.empty())
+    {
+        root = s.top().first;
+        visited = s.top().second;
+        s.pop();
+        if(root == NULL)
+            continue;
+        if(visited)
+        {
+            result.push_back(root->val);
+        }
+        else
+        {
+            s.push(make_pair(root, true));
+            s.push(make_pair(root->right, false));
+            s.push(make_pair(root->left, false));
+        }
+    }
 }
 
 //层次遍历一 输出一维数组
@@ -157,7 +232,8 @@ int main()
 	int nums[] = {1, 2, 3, 3, -1, 2, -1};
 	TreeNode *root = initBTree(nums, 0, sizeof(nums) / sizeof(nums[0]));
 	vector<int> preResult;
-	levelOrder(root, preResult);
+	inOrderTraversal(root, preResult);
 	cout << "前序遍历的结果：" << '\n';
 	traverse(preResult);
+	return 0;
 }
