@@ -1,7 +1,11 @@
 {
     "files.associations": {
         "iostream": "cpp",
-        "stdexcept": "cpp"
+        "stdexcept": "cpp",
+        "vector": "cpp",
+        "string": "cpp",
+        "istream": "cpp",
+        "ostream": "cpp"
     },
     "files.autoGuessEncoding": true
 }

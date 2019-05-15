@@ -226,14 +226,23 @@ void traverse(vector<int> nums)
 	}
 	cout << endl;
 }
+void traverse2(vector<vector<int>> nums){
+	for(int i = 0;i<nums.size();i++){
+		for(int j = 0;j<nums[i].size();j++){
+			cout<<nums[i][j];
+		}
+		cout<<'\n';
+	}
+}
 
 int main()
 {
 	int nums[] = {1, 2, 3, 3, -1, 2, -1};
 	TreeNode *root = initBTree(nums, 0, sizeof(nums) / sizeof(nums[0]));
-	vector<int> preResult;
-	inOrderTraversal(root, preResult);
+	// vector<int> preResult;
+	vector<vector<int>> preResult;
+	levelOrder2(root, preResult);
 	cout << "前序遍历的结果：" << '\n';
-	traverse(preResult);
+	traverse2(preResult);
 	return 0;
 }
